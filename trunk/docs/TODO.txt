@@ -1,0 +1,4 @@
+* Prettier interface
+* When creating identifiers, the script assumes that class and attribute labels are
+  either in Norwegian or in English. In either case, the identifiers will be created
+  in English.

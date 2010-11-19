@@ -1,0 +1,6 @@
+1. Check out the application on a web server, either remote or local. We recommend using the
+   application on a locally hosted web server to speed up load times. Also, the application only
+   has one storage unit, so if you install it on a web server, make sure that only one user
+   accesses the application at a time.
+   
+2. Go to the URL of the folder where you placed the application.
