@@ -291,7 +291,10 @@ EOF;
 			Datatype
 			</th>
 			<th>
-			Required
+			Description
+			</th>
+			<th>
+			Req.
 			</th>
 			<th>
 			&nbsp;
@@ -466,6 +469,7 @@ EOF;
 			$output .= '</select></td>';
 			
 			$output .=<<<EOF
+			<td><input type="text" name="data[class_list][$classKey][attribute_list][$attrKey][desc]" value="$data[desc]" /></td>	
 			<td><input type="checkbox" name="data[class_list][$classKey][attribute_list][$attrKey][required]" value="1"	
 EOF;
 

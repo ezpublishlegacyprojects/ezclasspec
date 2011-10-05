@@ -43,20 +43,29 @@ form {
 	cursor: move;
 }
 
+.attribute-list {
+	width: 100%;
+}
+
 .attribute-list tr th, .attribute-list tr td{
 	border: 1px solid black;
 }
 
+.attribute-list .name small {
+	font-size: .75em;
+	color: #999;
+}
+
 .attribute-list tr .attribute {
-	width: 30%;	
+	width: 50%;	
 }
 
 .attribute-list tr .identifier {
-	width: 30%;	
+	width: 20%;	
 }
 
 .attribute-list tr .datatype {
-	width: 30%;	
+	width: 20%;	
 }
 
 .attribute-list tr .required {

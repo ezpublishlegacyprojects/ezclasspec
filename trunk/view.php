@@ -19,15 +19,35 @@ echo '<h1>' . $data['site'] . '</h1>';
 
 echo "<p><em>" . date("d.m.Y H:i") . "</em></p>";
 
+// sort classes alphabetically
+asort($data['class_list']);
+
 foreach($data['class_list'] as $class)
 {
-	echo "<h2>$class[class_name] ($class[class_identifier])</h2>";
+	echo "<h2>$class[class_name]"; 
+
+	if($class['class_identifier'] != '')
+	{
+		echo " ($class[class_identifier])";
+	}
+
+	echo "</h2>";
 	
-	echo "<table class='attribute-list'><tr><th class='attribute'>Attribute</th><th class='identifier'>Identifier</th><th class='datatype'>Datatype</th><th class='required'>Required</th></tr>";
+	if(count($class['attribute_list']) > 0)
+	{
+		echo "<table class='attribute-list'><tr><th class='attribute'>Attribute</th><th class='identifier'>Identifier</th><th class='datatype'>Datatype</th><th class='required'>Required</th></tr>";
+	}
 	
 	foreach($class['attribute_list'] as $attribute)
 	{
-		echo "<tr><td>$attribute[name]</td><td>$attribute[identifier]</td><td>";
+		echo "<tr><td class='name'>$attribute[name]";
+
+		if($attribute['desc'] != '')
+		{
+			echo "<br /><small>$attribute[desc]</small>";
+		}
+
+		echo "</td><td>$attribute[identifier]</td><td>";
 		
 		echo $classObject->dataType($attribute['datatype']);
 		
@@ -45,7 +65,10 @@ foreach($data['class_list'] as $class)
 		echo "</td></tr>";
 	}
 	
-	echo "</table>";
+	if(count($class['attribute_list']) > 0)
+	{
+		echo "</table>";
+	}
 }
 
 ?>
