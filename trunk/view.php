@@ -35,7 +35,20 @@ foreach($data['class_list'] as $class)
 	
 	if(count($class['attribute_list']) > 0)
 	{
-		echo "<table class='attribute-list'><tr><th class='attribute'>Attribute</th><th class='identifier'>Identifier</th><th class='datatype'>Datatype</th><th class='required'>Required</th></tr>";
+		echo "<table border='1' cellspacing='0' class='attribute-list' width='100%' bordercolor=black><tr bgcolor=#000>
+		<th class='attribute' width='45%'>
+			<font color='white'><strong>Attribute</strong></font>
+		</th>
+		<th class='identifier' width='20%'>
+			<font color='white'><strong>Identifier</strong></font>
+		</th>
+		<th class='datatype' width='20%'>
+			<font color='white'><strong>Datatype</strong></font>
+		</th>
+		<th class='required' width='15%'>
+			<font color='white'><strong>Required</strong></font>
+		</th>
+		</tr>";
 	}
 	
 	foreach($class['attribute_list'] as $attribute)
@@ -67,7 +80,7 @@ foreach($data['class_list'] as $class)
 	
 	if(count($class['attribute_list']) > 0)
 	{
-		echo "</table>";
+		echo "</table><br />";
 	}
 }
 
