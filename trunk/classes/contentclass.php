@@ -15,7 +15,8 @@ class contentClass
 		$this->focusClass = false;
 		$this->cookieName = 'ezp-class-data';
 		$this->classLanguage = 'norwegian';
-		$this->translateURL = 'https://www.googleapis.com/language/translate/v2?key=AIzaSyD_M-6sDcNu3ZPhzToY_W_smtaG2SIY_Vs';
+		$this->translateGoogleURL = 'https://www.googleapis.com/language/translate/v2?key=AIzaSyD_M-6sDcNu3ZPhzToY_W_smtaG2SIY_Vs';
+		$this->translateBingURL = 'http://api.microsofttranslator.com/V2/Ajax.svc/Translate?appId=44A936365D6ACB29F7B0B3AFC53642FB59CCE539';
 		$this->storageFile	= 'var/storage.db';
 	}
 	
@@ -108,10 +109,28 @@ class contentClass
 		
 		return $data;
 	}
-	
+
 	function translate($stringList)
 	{
-		$url = $this->translateURL . '&source=no&target=en';
+		$url = $this->translateBingURL . '&from=no&to=en&text=';		
+		
+		$result = array();
+		foreach ($stringList as $placement => $string)
+		{
+			$stringURL = $url.urlencode($string);
+			$get = file_get_contents($stringURL);
+			// remove non-ascii characters
+			$clean = preg_replace('/[^(\x20-\x7F)]*/','', $get);
+			$result[$placement] = $clean;
+			unset($stringURL);
+		}
+		return $result;
+	}
+
+	function translateOld($stringList)
+	{
+
+		$url = $this->translateGoogleURL . '&source=no&target=en';
 		
 		$placementsForString = array();
 		foreach($stringList as $placement => $string)
@@ -123,6 +142,7 @@ class contentClass
 			
 			$placementsForString[$string][] = $placement;
 		}
+		
 		$urlResult = json_decode(file_get_contents($url), true);
 		
 		$result = array();
