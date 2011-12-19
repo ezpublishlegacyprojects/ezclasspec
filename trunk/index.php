@@ -76,7 +76,7 @@ echo $class->outputTOC($data);
 
 ?>
 </div>
-
+<div id="topnav">
 <form action="" method="post">
 
 <div id="buttons">
@@ -89,8 +89,9 @@ echo $class->outputTOC($data);
 </div>
 
 <label><strong>Site name</strong></label>
-<input type="text" name="data[site]" tabindex="<?php echo $class->getTabIndex(); ?>" value="<?php if(isset($data['site'])) {echo $data['site'];} ?>" />
+<input type="text" name="data[site]" tabindex="<?php echo $class->getTabIndex(); ?>" value="<?php if(isset($data['site'])) {echo $data['site'];} ?>" /></div>
 
+<div id="content">
 
 <?php 
 
@@ -131,3 +132,4 @@ echo $class->formOutputClass();
 	
   });
 </script>
+</div>
