@@ -64,72 +64,87 @@ if(isset($_POST['Export']))
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>eZ Publish Content Class spec</title>
+	<link type="text/css" href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="all"/>
 	<link type="text/css" href="css/main.css" rel="stylesheet" media="all"/>
 	<link type="text/css" href="css/nyroModal.css" rel="stylesheet" media="all"/>
+	<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tablednd_0_5.js"></script>
+	<script type="text/javascript" src="js/jquery.nyroModal-1.6.2.min.js"></script>
+	<script type="text/javascript">
+	  $(document).ready(function() {
+
+		// set focus on the new attribute of the class for which we most recenly added an attribute
+		$('#attribute-<?php echo $class->getFocusClass(); ?>-new .attribute_name').focus();
+
+		// initialise drag-and-drop functionality for the table
+		$('table').tableDnD({
+	        onDrop: function(table, row) {
+	            // alert($.tableDnD.serialize());
+	            $('form').submit();
+	        },
+	        dragHandle: "dragHandle"
+	    });
+
+		
+	  });
+	</script>
 </head>
+<body>
 
-<div id="toc">
-<?php 
+<form action="" method="post" class="form-inline">
 
-echo $class->outputTOC($data);
+<div class="container-fluid">
+  <div class="row-fluid">
+	<div class="span9">
+		<div class="well">
+			<input type="submit" class="btn btn-primary" name="Save" value="Save" />
+			<input type="submit" class="btn" name="CreateIdentifiers" value="Create identifiers" />
+			<input type="submit" class="btn" name="RemovedSelected" value="Remove selected" />
+			<input type="submit" class="btn" name="Export" value="Export" />
+			<a href="parts/import.php" class="nyroModal btn">Import</a>
+			<a href="view.php" class="btn">Print</a>
+			<input type="submit" class="btn btn-danger" name="Clear" value="Clear all" />
+		</div>
+	</div>
+	<div class="span3">
+		<div class="well">
+			<fieldset>
+				<input type="text" name="data[site]" placeholder="Site name" tabindex="<?php echo $class->getTabIndex(); ?>" value="<?php if(isset($data['site'])) {echo $data['site'];} ?>" />
+			</fieldset>
+		</div>
+	</div>
+  </div>
+  <div class="row-fluid">
+    <div class="span9">
+    	
+	<?php 
 
-?>
-</div>
-<div id="topnav">
-<form action="" method="post">
-
-<div id="buttons">
-	<input type="submit" name="Save" value="Save" />
-	<input type="submit" name="CreateIdentifiers" value="Create identifiers" />
-	<input type="submit" name="RemovedSelected" value="Remove selected" />
-	<input type="submit" name="Clear" value="Clear all" />
-	<input type="submit" name="Export" value="Export" />
-	<a href="parts/import.php" class="nyroModal">Import</a>
-</div>
-
-<label><strong>Site name</strong></label>
-<input type="text" name="data[site]" tabindex="<?php echo $class->getTabIndex(); ?>" value="<?php if(isset($data['site'])) {echo $data['site'];} ?>" /></div>
-
-<div id="content">
-
-<?php 
-
-// for each existing class
-if(isset($data['class_list']) and count($data['class_list']) > 0)
-{
-	foreach($data['class_list'] as $key => $data)
+	// for each existing class
+	if(isset($data['class_list']) and count($data['class_list']) > 0)
 	{
-		echo $class->formOutputClass($key, $data);
+		foreach($data['class_list'] as $key => $dataSingle)
+		{
+			echo $class->formOutputClass($key, $dataSingle);
+		}
 	}
-}
 
-// output a blank line to add new classes
-echo $class->formOutputClass();
+	// output a blank line to add new classes
+	echo $class->formOutputClass();
 
-?>
+	?>
+ 	</div>
+ 	<div class="span3">
+      <div class="well sidebar-nav">
+      	<?php
+		echo $class->outputTOC($data);
+		?>
+      </div><!--/.well -->
+    </div><!--/span-->
+ </div>
+</div>
 
 </form>
-
-<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
-<script type="text/javascript" src="js/jquery.tablednd_0_5.js"></script>
-<script type="text/javascript" src="js/jquery.nyroModal-1.6.2.min.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-
-	// set focus on the new attribute of the class for which we most recenly added an attribute
-	$('#attribute-<?php echo $class->getFocusClass(); ?>-new .attribute_name').focus();
-
-	// initialise drag-and-drop functionality for the table
-	$('table').tableDnD({
-        onDrop: function(table, row) {
-            // alert($.tableDnD.serialize());
-            $('form').submit();
-        },
-        dragHandle: "dragHandle"
-    });
-
-	
-  });
-</script>
-</div>
+</body>
+</html>
