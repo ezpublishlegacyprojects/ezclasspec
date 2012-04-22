@@ -254,7 +254,7 @@ class contentClass
 		
 		if(isset($data['site']))
 		{
-			$output = '<h3>Class list (<a href="view.php">view</a>)</h3><ul>';
+			$output = '<ul class="nav nav-list"><li class="nav-header">Class list</li>';
 		}
 		
 		if(isset($data['class_list']))
@@ -269,7 +269,7 @@ class contentClass
 			
 			$output .= '</ul>';
 		}
-		
+
 		return $output;
 	}
 	
@@ -279,7 +279,9 @@ class contentClass
 		
 		$output =<<<EOF
 <a name="class-$key"></a>
-<div class="class-block" id="class-$key">
+<div class="well" id="class-$key">
+<fieldset>
+	<legend>Class</legend>
 EOF;
 
 		if($key !== 'new')
@@ -288,15 +290,14 @@ EOF;
 		}
 		
 		$output .=<<<EOF
-	<label>Class name</label>
-	<input type="text" tabindex="$tabIndex" name="data[class_list][$key][class_name]" class="class_name" value="$data[class_name]" />
-	<label>Identifier</label>
-	<input type="text" name="data[class_list][$key][class_identifier]" class="class_identifier" value="$data[class_identifier]" />
+	<input type="text" tabindex="$tabIndex" placeholder="Name" name="data[class_list][$key][class_name]" class="class_name" value="$data[class_name]" />
+	<input type="text" placeholder="Identifier" name="data[class_list][$key][class_identifier]" class="class_identifier input-small" value="$data[class_identifier]" />
 
+</fieldset>
 <fieldset>
 	<legend>Attributes</legend>
 	
-	<table>
+	<table class="table-condensed">
 		<tr class="nodrag nodrop">
 			<th>
 			&nbsp;
@@ -455,13 +456,13 @@ EOF;
 		$output .=<<<EOF
 			</td>
 			<td>
-			<input type="text" tabindex="$tabIndex" name="data[class_list][$classKey][attribute_list][$attrKey][name]" class="attribute_name" value="$data[name]" />
+			<input type="text" tabindex="$tabIndex" name="data[class_list][$classKey][attribute_list][$attrKey][name]" placeholder="Name" class="attribute_name" value="$data[name]" />
 			</td>
 			<td>
-			<input type="text" name="data[class_list][$classKey][attribute_list][$attrKey][identifier]" value="$data[identifier]" />
+			<input type="text" name="data[class_list][$classKey][attribute_list][$attrKey][identifier]" placeholder="Identifier" value="$data[identifier]" />
 			</td>
 			<td>
-			<select name="data[class_list][$classKey][attribute_list][$attrKey][datatype]">
+			<select name="data[class_list][$classKey][attribute_list][$attrKey][datatype]" class="input-small">
 EOF;
 
 			foreach($this->dataTypeList() as $key => $value)
@@ -489,7 +490,7 @@ EOF;
 			$output .= '</select></td>';
 			
 			$output .=<<<EOF
-			<td><input type="text" name="data[class_list][$classKey][attribute_list][$attrKey][desc]" value="$data[desc]" /></td>	
+			<td><input type="text" name="data[class_list][$classKey][attribute_list][$attrKey][desc]" value="$data[desc]" placeholder="Description" /></td>	
 			<td><input type="checkbox" name="data[class_list][$classKey][attribute_list][$attrKey][required]" value="1"	
 EOF;
 
@@ -503,7 +504,7 @@ EOF;
 			// if the attribute is new
 			if($attrKey === 'new')
 			{
-				$output .= '<td><input type="submit" name="AddAttribute" value="Add" />';
+				$output .= '<td><input type="submit" class="btn" name="AddAttribute" value="Add" />';
 			}
 			else
 			{

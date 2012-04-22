@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>eZ Publish Content Class spec</title>
+	<link type="text/css" href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="all"/>
 	<link type="text/css" href="css/main.css" rel="stylesheet" media="all"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
@@ -35,7 +36,7 @@ foreach($data['class_list'] as $class)
 	
 	if(count($class['attribute_list']) > 0)
 	{
-		echo "<table border='1' cellspacing='0' class='attribute-list' width='100%' bordercolor=black><tr bgcolor=#000>
+		echo "<table border='1' cellspacing='0' class='attribute-list table' width='100%' bordercolor='black'><tr bgcolor=#000>
 		<th class='attribute' width='45%'>
 			<font color='white'><strong>Attribute</strong></font>
 		</th>
