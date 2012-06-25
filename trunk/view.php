@@ -32,7 +32,7 @@ foreach($data['class_list'] as $class)
 		echo " ($class[class_identifier])";
 	}
 
-	echo "</h2>";
+	echo " [$class[class_group]] </h2>";
 	
 	if(count($class['attribute_list']) > 0)
 	{

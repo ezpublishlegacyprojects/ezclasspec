@@ -219,12 +219,18 @@ class contentClass
 		// for each class
 		$classList = array();
 		
+
 		// if a class list exists
 		if(isset($data['class_list']))
 		{
 			// for each class
 			foreach($data['class_list'] as $key => $class)
 			{
+				if(!isset($class['class_group']))
+				{
+					$class['class_group'] = 'Content';
+				}
+
 				// if a new attribute has been added
 				if(isset($class['attribute_list']['new']['name']) and $class['attribute_list']['new']['name'] != '')
 				{
@@ -243,7 +249,9 @@ class contentClass
 			}
 			
 			$data['class_list'] = $classList;
+
 		}
+
 
 		return $data;
 	}
@@ -288,11 +296,21 @@ EOF;
 		{
 			$output .= '<input type="checkbox" name="class_delete[' . $key . ']" value="1" />';
 		}
+
+		$groupList = $this->classGroupList();
 		
 		$output .=<<<EOF
 	<input type="text" tabindex="$tabIndex" placeholder="Name" name="data[class_list][$key][class_name]" class="class_name" value="$data[class_name]" />
 	<input type="text" placeholder="Identifier" name="data[class_list][$key][class_identifier]" class="class_identifier input-small" value="$data[class_identifier]" />
-
+	<select name="data[class_list][$key][class_group]">
+EOF;
+	foreach($this->classGroupList() as $index => $value)
+	{
+		$selected = (isset($data['class_group']) && $value == $data['class_group']) ? ' selected' : '';
+		$output .= '<option value="'.$value.'"'.$selected.'>'.$value.'</option>';
+	}
+	$output .=<<<EOF
+</select>
 </fieldset>
 <fieldset>
 	<legend>Attributes</legend>
@@ -429,6 +447,20 @@ EOF;
 		
 		asort($datatypes);
 		
+		return $datatypes;
+	}
+
+	function classGroupList()
+	{
+		$groups = array('1' => 'Content',
+						'2' => 'Users',
+						'3' => 'Media',
+						'4' => 'Setup');
+
+		include('settings/datatypes.php');
+
+		$datatypes = array_merge($groups, $additionalClassGroups);
+
 		return $datatypes;
 	}
 	
